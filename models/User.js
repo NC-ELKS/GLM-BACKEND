@@ -18,4 +18,4 @@ const userTable = {
   }
 };
 
-module.exports = { userTable };
+module.exports = userTable;
