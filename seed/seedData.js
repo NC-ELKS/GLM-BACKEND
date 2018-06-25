@@ -1,17 +1,17 @@
-'use strict';
+"use strict";
 
-const AWS = require('aws-sdk');
-const userData = require('./data/testData');
+const AWS = require("aws-sdk");
+const { userData, messageData } = require("./data/testData");
 
 AWS.config.update({
-  region: 'eu-west-2'
+  region: "eu-west-2"
 });
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 userData.forEach(user => {
   let params = {
-    TableName: 'Users',
+    TableName: "Users",
     Item: {
       firstname: user.firstname,
       surname: user.surname,
@@ -23,11 +23,36 @@ userData.forEach(user => {
   docClient.put(params, (err, data) => {
     if (err)
       console.log(
-        'Could not create user.',
+        "Could not create user.",
         user.username,
-        'Error:',
+        "Error:",
         JSON.stringify(err, null, 2)
       );
-    else console.log('Successfull added user', user.username);
+    else console.log("Successfully added user", user.username);
+  });
+});
+
+messageData.forEach(message => {
+  let params = {
+    TableName: "Messages",
+    Item: {
+      msgPoster: message.msgPoster,
+      content: message.content,
+      latitude: message.latitude,
+      longitude: message.longitude,
+      recipients: message.recipients,
+      timestamp: message.timestamp
+    }
+  };
+
+  docClient.put(params, (err, data) => {
+    if (err)
+      console.log(
+        "Could not create message.",
+        message.content,
+        "Error:",
+        JSON.stringify(err, null, 2)
+      );
+    else console.log("Successfully added message", message.content);
   });
 });

@@ -1,16 +1,25 @@
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 
 AWS.config.update({
-  region: 'eu-west-2'
+  region: "eu-west-2"
 });
 
 const database = new AWS.DynamoDB();
 
-const params = {
-  TableName: 'Users'
+const userParams = {
+  TableName: "Users"
 };
 
-database.deleteTable(params, (err, data) => {
-  if (err) console.log('Error in deleting table', params.TableName);
-  else console.log('Completed deletion of table', params.TableName);
+const messageParams = {
+  TableName: "Messages"
+};
+
+database.deleteTable(userParams, (err, data) => {
+  if (err) console.log("Error in deleting table", userParams.TableName);
+  else console.log("Completed deletion of table", userParams.TableName);
+});
+
+database.deleteTable(messageParams, (err, data) => {
+  if (err) console.log("Error in deleting table", messageParams.TableName);
+  else console.log("Completed deletion of table", messageParams.TableName);
 });
