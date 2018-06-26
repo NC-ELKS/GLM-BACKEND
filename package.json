@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "claudia create --name gl-messenger-api --region eu-west-2 --api-module app"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/NC-ELKS/GLM-BACKEND/issues"
   },
-  "homepage": "https://github.com/NC-ELKS/GLM-BACKEND#readme"
+  "homepage": "https://github.com/NC-ELKS/GLM-BACKEND#readme",
+  "dependencies": {
+    "claudia-api-builder": "^4.1.1"
+  }
 }
