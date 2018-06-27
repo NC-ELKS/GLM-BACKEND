@@ -1,0 +1,65 @@
+service: geo-messenger
+provider:
+  name: aws
+  runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+          Fn::Join:
+            - ""
+            - - "arn:aws:dynamodb:*:*:table/"
+              - Ref: MessagesDynamoDbTable
+
+functions:
+  createMessage:
+    handler: handler.createMessage
+    events:
+      - http:
+          path: messages
+          method: post
+          cors: true
+  viewMessages:
+    handler: handler.viewMessages
+    events:
+      - http:
+          path: messages/{recepient}
+          method: get
+          cors: true
+  getAllMessages:
+    handler: handler.getAllMessages
+    events:
+      - http:
+          path: allmessages
+          method: get
+          cors: true        
+
+resources:
+    Resources:
+      MessagesDynamoDbTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          TableName: Messages
+          AttributeDefinitions:
+            - AttributeName: msgPoster
+              AttributeType: S
+            - AttributeName: timestamp
+              AttributeType: N
+          KeySchema:
+            - AttributeName: msgPoster
+              KeyType: HASH
+            - AttributeName: timestamp
+              KeyType: RANGE
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+
+
+
