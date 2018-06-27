@@ -13,6 +13,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
+        - dynamodb:ListStreams
       Resource:
           Fn::Join:
             - ""
@@ -40,7 +41,18 @@ functions:
       - http:
           path: allmessages
           method: get
-          cors: true        
+          cors: true
+  triggerStream:
+    handler: handler.triggerStream
+    events:
+      - stream:
+          type: dynamodb
+          batchSize: 1
+          startingPosition: LATEST
+          arn:
+            Fn::GetAtt:
+              - MessagesDynamoDbTable
+              - StreamArn        
 
 resources:
     Resources:
@@ -61,6 +73,8 @@ resources:
           ProvisionedThroughput:
             ReadCapacityUnits: 1
             WriteCapacityUnits: 1
+          StreamSpecification:
+            StreamViewType: NEW_IMAGE
       
       UsersDynamoDbTable:
         Type: AWS::DynamoDB::Table

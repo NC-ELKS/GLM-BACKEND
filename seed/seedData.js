@@ -40,7 +40,8 @@ messageData.forEach(message => {
     longitude,
     recipient,
     timestamp,
-    messageid
+    messageid,
+    read
   } = message;
 
   let params = {
@@ -52,7 +53,8 @@ messageData.forEach(message => {
       longitude,
       recipient,
       timestamp,
-      messageid
+      messageid,
+      read
     }
   };
 

@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-const addMessage = require("./handlers/addMessage");
-const getMessagesByUsername = require("./handlers/getMessagesByUsername");
-const viewAllMessages = require("./handlers/viewAllMessages");
+const addMessage = require('./handlers/addMessage');
+const getMessagesByUsername = require('./handlers/getMessagesByUsername');
+const viewAllMessages = require('./handlers/viewAllMessages');
 
 const createMessage = (event, context, cb) => {
   const data = JSON.parse(event.body);
@@ -38,4 +38,18 @@ const getAllMessages = (event, context, cb) => {
     .catch(cb);
 };
 
-module.exports = { createMessage, getUserMessages, getAllMessages };
+const triggerStream = (event, context, cb) => {
+  console.log('Trigger stream was called');
+
+  const eventData = event.Records[0];
+  console.log(eventData.dynamodb.NewImage);
+
+  cb(null, null);
+};
+
+module.exports = {
+  createMessage,
+  getUserMessages,
+  getAllMessages,
+  triggerStream
+};
