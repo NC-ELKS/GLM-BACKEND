@@ -1,20 +1,21 @@
-'use strict';
+"use strict";
 
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const uuid = require('uuid');
+const uuidv4 = require("uuid/v4");
 
 module.exports = data => {
   let params = {
-    TableName: 'Messages',
+    TableName: "Messages",
     Item: {
       msgPoster: data.msgPoster,
       content: data.content,
       latitude: data.latitude,
       longitude: data.longitude,
-      recipients: data.recipients,
+      recipient: data.recipient,
       timestamp: Date.now(),
-      messageid: uuid.v1()
+      messageid: uuidv4(),
+      read: false
     }
   };
   return dynamoDb

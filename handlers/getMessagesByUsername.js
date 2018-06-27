@@ -1,10 +1,13 @@
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-module.exports = username => {
+module.exports = recipient => {
   let params = {
-    TableName: 'Messages',
-    Key: { username }
+    TableName: "Messages",
+    KeyConditionExpression: "recipient = :recipient",
+    ExpressionAttributeValues: {
+      ":recipient": recipient
+    }
   };
-  return dynamoDb.get(params).promise();
+  return dynamoDb.query(params).promise();
 };

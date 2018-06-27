@@ -33,15 +33,26 @@ userData.forEach(user => {
 });
 
 messageData.forEach(message => {
+  const {
+    msgPoster,
+    content,
+    latitude,
+    longitude,
+    recipient,
+    timestamp,
+    messageid
+  } = message;
+
   let params = {
     TableName: "Messages",
     Item: {
-      msgPoster: message.msgPoster,
-      content: message.content,
-      latitude: message.latitude,
-      longitude: message.longitude,
-      recipients: message.recipients,
-      timestamp: message.timestamp
+      msgPoster,
+      content,
+      latitude,
+      longitude,
+      recipient,
+      timestamp,
+      messageid
     }
   };
 

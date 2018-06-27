@@ -16,8 +16,8 @@ const createMessage = (event, context, cb) => {
     .catch(cb);
 };
 
-const viewMessages = (event, context, cb) => {
-  getMessagesByUsername(event.pathParameters.id)
+const getUserMessages = (event, context, cb) => {
+  getMessagesByUsername(event.pathParameters.recepient)
     .then(result => {
       const response = {
         body: JSON.stringify(result)
@@ -38,4 +38,4 @@ const getAllMessages = (event, context, cb) => {
     .catch(cb);
 };
 
-module.exports = { createMessage, viewMessages, getAllMessages };
+module.exports = { createMessage, getUserMessages, getAllMessages };
