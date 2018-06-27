@@ -1,0 +1,117 @@
+service: geo-messenger
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: eu-west-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:ListStreams
+      Resource:
+          Fn::Join:
+            - ""
+            - - "arn:aws:dynamodb:*:*:table/"
+              - Ref: MessagesDynamoDbTable
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:ListStreams
+      Resource:
+          Fn::Join:
+            - ""
+            - - "arn:aws:dynamodb:*:*:table/"
+              - Ref: UsersDynamoDbTable
+
+functions:
+  createMessage:
+    handler: handler.createMessage
+    events:
+      - http:
+          path: messages
+          method: post
+          cors: true
+  getUserMessages:
+    handler: handler.getUserMessages
+    events:
+      - http:
+          path: messages/{recepient}
+          method: get
+          cors: true
+  getAllMessages:
+    handler: handler.getAllMessages
+    events:
+      - http:
+          path: allmessages
+          method: get
+          cors: true
+  getUser:
+    handler: handler.getUser
+    events:
+      - http:
+          path: users/{username}
+          method: get
+          cors: true
+  triggerStream:
+    handler: handler.triggerStream
+    events:
+      - stream:
+          type: dynamodb
+          batchSize: 1
+          startingPosition: LATEST
+          arn:
+            Fn::GetAtt:
+              - MessagesDynamoDbTable
+              - StreamArn
+  
+
+resources:
+    Resources:
+      MessagesDynamoDbTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          TableName: Messages
+          AttributeDefinitions:
+            - AttributeName: recipient
+              AttributeType: S
+            - AttributeName: messageid
+              AttributeType: S
+          KeySchema:
+            - AttributeName: recipient
+              KeyType: HASH
+            - AttributeName: messageid
+              KeyType: RANGE
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+          StreamSpecification:
+            StreamViewType: NEW_IMAGE
+      
+      UsersDynamoDbTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          TableName: Users
+          AttributeDefinitions:
+            - AttributeName: username
+              AttributeType: S
+          KeySchema:
+            - AttributeName: username
+              KeyType: HASH
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+
+
+

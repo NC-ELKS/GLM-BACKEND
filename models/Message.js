@@ -2,22 +2,22 @@ const messageTable = {
   TableName: "Messages",
   KeySchema: [
     {
-      AttributeName: "msgPoster",
+      AttributeName: "recipient",
       KeyType: "HASH"
     },
     {
-      AttributeName: "timestamp",
+      AttributeName: "messageid",
       KeyType: "RANGE"
     }
   ],
   AttributeDefinitions: [
     {
-      AttributeName: "msgPoster",
+      AttributeName: "recipient",
       AttributeType: "S"
     },
     {
-      AttributeName: "timestamp",
-      AttributeType: "N"
+      AttributeName: "messageid",
+      AttributeType: "S"
     }
   ],
   ProvisionedThroughput: {
