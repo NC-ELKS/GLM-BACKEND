@@ -19,6 +19,21 @@ provider:
             - ""
             - - "arn:aws:dynamodb:*:*:table/"
               - Ref: MessagesDynamoDbTable
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:ListStreams
+      Resource:
+          Fn::Join:
+            - ""
+            - - "arn:aws:dynamodb:*:*:table/"
+              - Ref: UsersDynamoDbTable
 
 functions:
   createMessage:
@@ -42,6 +57,13 @@ functions:
           path: allmessages
           method: get
           cors: true
+  getUser:
+    handler: handler.getUser
+    events:
+      - http:
+          path: users/{username}
+          method: get
+          cors: true
   triggerStream:
     handler: handler.triggerStream
     events:
@@ -52,7 +74,8 @@ functions:
           arn:
             Fn::GetAtt:
               - MessagesDynamoDbTable
-              - StreamArn        
+              - StreamArn
+  
 
 resources:
     Resources:
