@@ -27,28 +27,31 @@ const userData = [
 
 const messageData = [
   {
-    msgPoster: "KKDavidson",
-    content: "Here's a fun new message!",
+    msgPoster: "El_Orsborn",
+    content: "This is working!",
     latitude: 53.486435,
     longitude: -2.238913,
-    recipients: [{ user: "LFreeman1", read: false }],
+    recipient: "KKDavidson",
+    read: true,
     timestamp: Date.now()
   },
   {
-    msgPoster: "El_Orsborn",
-    content: "I woz here",
-    latitude: 53.486435,
-    longitude: -2.238913,
-    recipients: [{ user: "KKDavidson", read: true }],
+    msgPoster: "Seth20",
+    content: "I am Seth",
+    latitude: 53.486495,
+    longitude: -2.238917,
+    recipient: "LFreeman1",
+    read: true,
     timestamp: Date.now()
   },
   {
     msgPoster: "LFreeman1",
-    content: "Let's send Seth a message!",
-    latitude: 53.301563,
-    longitude: -2.368405,
-    recipients: [{ user: "Seth20", read: false }],
-    timestamp: Date.now() - 10000
+    content: "I am like to make stuff",
+    latitude: 53.486495,
+    longitude: -2.238917,
+    recipient: "Seth20",
+    read: false,
+    timestamp: Date.now()
   }
 ];
 

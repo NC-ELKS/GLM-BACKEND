@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-const addMessage = require('./handlers/addMessage');
-const getMessagesByUsername = require('./handlers/getMessagesByUsername');
-const viewAllMessages = require('./handlers/viewAllMessages');
+const addMessage = require("./handlers/addMessage");
+const getMessagesByUsername = require("./handlers/getMessagesByUsername");
+const viewAllMessages = require("./handlers/viewAllMessages");
 
 const createMessage = (event, context, cb) => {
   const data = JSON.parse(event.body);
@@ -30,10 +30,10 @@ const viewMessages = (event, context, cb) => {
 const getAllMessages = (event, context, cb) => {
   viewAllMessages()
     .then(result => {
-      // const response = {
-      //   body: JSON.stringify(result)
-      // };
-      cb(null, JSON.stringify(result));
+      const response = {
+        body: JSON.stringify(result)
+      };
+      cb(null, response);
     })
     .catch(cb);
 };

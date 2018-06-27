@@ -2,6 +2,7 @@ service: geo-messenger
 provider:
   name: aws
   runtime: nodejs6.10
+  region: eu-west-2
   iamRoleStatements:
     - Effect: Allow
       Action:
