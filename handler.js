@@ -45,7 +45,6 @@ const getAllMessages = (event, context, cb) => {
 const triggerStream = (event, context, cb) => {
   console.log('Trigger stream was called');
   const eventData = event.Records[0];
-  console.log(JSON.stringify(sendSMS))
   sendSMS(eventData.dynamodb.NewImage)
   cb(null, null);
 };
