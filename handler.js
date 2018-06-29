@@ -41,15 +41,12 @@ const getAllMessages = (event, context, cb) => {
     .catch(cb);
 };
 
-
-const triggerStream = (event, context, cb) => {
+const triggerMessageStream = (event, context, cb) => {
   console.log('Trigger stream was called');
   const eventData = event.Records[0];
   sendSMS(eventData.dynamodb.NewImage)
   cb(null, null);
 };
-
-
 
 const getUser = (event, context, cb) => {
   getUserDetails(event.pathParameters.username)
@@ -66,6 +63,6 @@ module.exports = {
   createMessage,
   getUserMessages,
   getAllMessages,
-  triggerStream,
+  triggerMessageStream,
   getUser,
 };

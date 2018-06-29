@@ -16,7 +16,8 @@ userData.forEach(user => {
       firstname: user.firstname,
       surname: user.surname,
       username: user.username,
-      friends: user.friends
+      friends: user.friends,
+      mobile: user.mobile
     }
   };
 
