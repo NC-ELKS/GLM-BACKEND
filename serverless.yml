@@ -64,8 +64,8 @@ functions:
           path: users/{username}
           method: get
           cors: true
-  triggerStream:
-    handler: handler.triggerStream
+  triggerMessageStream:
+    handler: handler.triggerMessageStream
     events:
       - stream:
           type: dynamodb
@@ -76,7 +76,6 @@ functions:
               - MessagesDynamoDbTable
               - StreamArn
   
-
 resources:
     Resources:
       MessagesDynamoDbTable:
@@ -112,6 +111,3 @@ resources:
           ProvisionedThroughput:
             ReadCapacityUnits: 1
             WriteCapacityUnits: 1
-
-
-

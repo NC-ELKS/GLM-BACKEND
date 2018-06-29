@@ -4,6 +4,8 @@ const addMessage = require('./handlers/addMessage');
 const getMessagesByUsername = require('./handlers/getMessagesByUsername');
 const viewAllMessages = require('./handlers/viewAllMessages');
 const getUserDetails = require('./handlers/getUserDetails');
+const sendSMS = require('./handlers/sendSMS')
+
 
 const createMessage = (event, context, cb) => {
   const data = JSON.parse(event.body);
@@ -39,12 +41,10 @@ const getAllMessages = (event, context, cb) => {
     .catch(cb);
 };
 
-const triggerStream = (event, context, cb) => {
+const triggerMessageStream = (event, context, cb) => {
   console.log('Trigger stream was called');
-
   const eventData = event.Records[0];
-  console.log(eventData.dynamodb.NewImage);
-  // Call a function with the newimage that sends it to the relevant phone?
+  sendSMS(eventData.dynamodb.NewImage)
   cb(null, null);
 };
 
@@ -63,6 +63,6 @@ module.exports = {
   createMessage,
   getUserMessages,
   getAllMessages,
-  triggerStream,
-  getUser
+  triggerMessageStream,
+  getUser,
 };
