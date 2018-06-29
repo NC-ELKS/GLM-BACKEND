@@ -41,11 +41,11 @@ const getAllMessages = (event, context, cb) => {
     .catch(cb);
 };
 
-const triggerMessageStream = (event, context, cb) => {
+const triggerDataStream = (event, context, cb) => {
   console.log('Trigger stream was called');
   const eventData = event.Records[0];
-  sendSMS(eventData.dynamodb.NewImage)
-  cb(null, null);
+  if (eventData.eventName === 'INSERT') sendSMS(eventData.dynamodb.NewImage)
+  else cb(null, null);
 };
 
 const getUser = (event, context, cb) => {
@@ -63,6 +63,6 @@ module.exports = {
   createMessage,
   getUserMessages,
   getAllMessages,
-  triggerMessageStream,
+  triggerDataStream,
   getUser,
 };

@@ -64,8 +64,8 @@ functions:
           path: users/{username}
           method: get
           cors: true
-  triggerMessageStream:
-    handler: handler.triggerMessageStream
+  triggerDataStream:
+    handler: handler.triggerDataStream
     events:
       - stream:
           type: dynamodb
