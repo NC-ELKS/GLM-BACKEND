@@ -47,7 +47,7 @@ const triggerDataStream = (event, context, cb) => {
   console.log('Trigger stream was called');
   const eventData = event.Records[0];
   if (eventData.eventName === 'INSERT') sendSMS(eventData.dynamodb.NewImage)
-  if (eventData.eventName === 'MODIFY') sendReadSMS(eventData.dynamodb);
+  if (eventData.eventName === 'MODIFY') sendReadSMS(eventData.dynamodb.NewImage);
   else cb(null, null);
 };
 
