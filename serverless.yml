@@ -75,6 +75,13 @@ functions:
             Fn::GetAtt:
               - MessagesDynamoDbTable
               - StreamArn
+  changeMessageStatus:
+    handler: handler.changeMessageStatus
+    events:
+      - http:
+          path: message/{recipient}/{messageid}
+          method: put
+          cors: true
   
 resources:
     Resources:
