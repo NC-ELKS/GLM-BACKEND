@@ -14,7 +14,7 @@ module.exports = (message) => {
     dynamoDb.query(params).promise()
         .then(user => {
             client.messages.create({
-                body: `Hi ${user.Items[0].firstname}! Your message you left for ${message.recipient.S} has been read!`,
+                body: `Hi ${user.Items[0].firstname}! The footprint you left for ${message.recipient.S} has been read!`,
                 from: twilioNum,
                 to: user.Items[0].mobile
             })
