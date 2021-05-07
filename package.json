@@ -24,7 +24,7 @@
     "claudia-api-builder": "^4.1.1",
     "twilio": "^3.17.4",
     "uuid": "^3.3.0",
-    "lodash": ">=4.17.19"
+    "lodash": ">=4.17.21"
   },
   "devDependencies": {}
 }
