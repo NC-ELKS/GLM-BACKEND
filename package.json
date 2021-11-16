@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/NC-ELKS/GLM-BACKEND#readme",
   "dependencies": {
-    "aws-sdk": "^2.263.1",
+    "aws-sdk": "^2.814.0",
     "claudia-api-builder": "^4.1.1",
     "twilio": "^3.17.4",
     "uuid": "^3.3.0",
